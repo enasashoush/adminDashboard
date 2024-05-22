@@ -38,7 +38,8 @@ function Sidebar() {
 
             <li className="nav-item active">
                 <Link className="nav-link" to="/portal/product-list">
-                    <i class="fa-brands fa-product-hunt" style={{ marginRight: "0.5rem" }} ></i>
+                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                    <i class="fa-brands fa-product-hunt" ></i>
                     <span>Product</span>
                 </Link>
             </li>
