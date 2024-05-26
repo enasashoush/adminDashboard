@@ -17,6 +17,7 @@ import Categorylist from './Categorylist';
 import CategoryCreate from './CategoryCreate';
 import CategoryView from './CategoryView';
 import CategoryEdit from './CategoryEdit';
+import Orderlist from './orderList';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/portal' element={<Portal />}>
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='user-list' element={<Userlist />} />
+          <Route path=' Orderlist' element={< Orderlist/>}/>
           <Route path='create-user' element={<UserCreate />} />
           <Route path='user-view/:id' element={<UserView />} />
           <Route path='user-edit/:id' element={<UserEdit />} />
