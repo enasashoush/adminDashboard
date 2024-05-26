@@ -3,15 +3,15 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-function UserEdit() {
+function NurseEdit() {
     const params = useParams();
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        getUserData()
+        getProductData()
     }, [])
 
-    let getUserData = async () => {
+    let getProductData = async () => {
         try {
             const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
             myFormik.setValues(user.data);
@@ -23,11 +23,12 @@ function UserEdit() {
 
     const myFormik = useFormik({
         initialValues: {
-            username: "",
-            email: "",
-            city: "",
-            state: "",
-            country: ""
+            productName: "",
+            price: "",
+            description: "",
+            rate: "",
+            category: "",
+            image: ""
         },
         // Validating Forms while entering the data
         validate: (values) => {
@@ -67,7 +68,7 @@ function UserEdit() {
                 setLoading(true);
                 await axios.put(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`, values);
                 setLoading(false);
-                navigate("/portal/user-list")
+                navigate("/portal/product-list")
             } catch (error) {
                 console.log(error);
                 setLoading(false);
@@ -76,38 +77,39 @@ function UserEdit() {
     })
     return (
         <>
-            <h3>UserEdit - Id : {params.id} </h3>
+            <h3>NurseEdit - Id : {params.id} </h3>
             <div className='container'>
                 <form onSubmit={myFormik.handleSubmit}>
                     <div className='row'>
                         <div className="col-lg-6">
-                            <label>Name</label>
+                            <label>  Name</label>
                             <input name='username' value={myFormik.values.username} onChange={myFormik.handleChange} type={"text"}
                                 className={`form-control ${myFormik.errors.username ? "is-invalid" : ""} `} />
                             <span style={{ color: "red" }}>{myFormik.errors.username}</span>
                         </div>
 
                         <div className="col-lg-6">
-                            <label>E-Mail</label>
+                            <label>Fees</label>
                             <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
                                 className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
                             <span style={{ color: "red" }}>{myFormik.errors.email}</span>
                         </div>
 
-                        <div className='col-lg-4'>
-                            <label>City</label>
-                            <select name='city' value={myFormik.values.city} onChange={myFormik.handleChange}
-                                className={`form-control ${myFormik.errors.city ? "is-invalid" : ""} `} >
-                                <option value="">----Select----</option>
-                                <option value="CN">Chennai</option>
-                                <option value="KN">Kochin</option>
-                                <option value="MU">Mumbai</option>
-                                <option value="SA">Seattle</option>
-                                <option value="MI">Miami</option>
-                                <option value="VB">Virginia Beach</option>
-                            </select>
-                            <span style={{ color: "red" }}>{myFormik.errors.city}</span>
+                        <div className="col-lg-6">
+                            <label>Spacfication</label>
+                            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+                                className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+                            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
                         </div>
+
+                        <div className="col-lg-6">
+                            <label>Image</label>
+                            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+                                className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+                            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+                        </div>
+
+
 
                         <div className='col-lg-12 mt-3'>
                             <input disabled={isLoading} type="submit" value={isLoading ? "Updating..." : "Update"} className=' btn btn-success' />
@@ -122,4 +124,4 @@ function UserEdit() {
     )
 }
 
-export default UserEdit
+export default NurseEdit

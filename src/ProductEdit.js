@@ -142,7 +142,7 @@ function ProductEdit() {
 
 
                         <div className='col-lg-12 mt-3'>
-                            <input disabled={isLoading} type="submit" value={isLoading ? "Updating..." : "Update"} className=' btn btn-primary' />
+                            <input disabled={isLoading} type="submit" value={isLoading ? "Updating..." : "Update"} className=' btn btn-success' />
                         </div>
                     </div>
                 </form>

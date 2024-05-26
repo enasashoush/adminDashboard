@@ -15,6 +15,10 @@ import ProductView from './ProductView';
 import ProductEdit from './ProductEdit';
 import Orderlist from './orderList';
 import OrderView from './orderView';
+import NurseCreate from './NurseCreate';
+import Nurselist from './NuresList';
+import NurseEdit from './NurseEdit';
+import NurseView from './NurseView';
 
 function App() {
   return (
@@ -33,6 +37,10 @@ function App() {
           <Route path='product-view/:id' element={<ProductView />} />
           <Route path='product-edit/:id' element={<ProductEdit />} />
           <Route path='OrderView/:id' element={<OrderView/>}/>
+          <Route path='NurseCreate' element={<NurseCreate/>}/>
+          <Route path='Nurselist' element={<Nurselist/>}/>
+          <Route path='NurseEdit/:id' element={<NurseEdit/>}/>
+          <Route path='NurseView/:id' element={<NurseView/>}/>
 
 
 

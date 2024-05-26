@@ -4,21 +4,21 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-function Userlist() {
+function Nurselist() {
 
-  const [userList, setUserList] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     //On Load
-    getUsers();
+    getProducts();
     console.log("welcome");
   }, []);
 
-  let getUsers = async () => {
+  let getProducts = async () => {
     try {
       const users = await axios.get("https://63a9bccb7d7edb3ae616b639.mockapi.io/users");
-      setUserList(users.data);
+      setProductList(users.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -30,7 +30,7 @@ function Userlist() {
       const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
       if (confirmDelete) {
         await axios.delete(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${id}`);
-        getUsers();
+        getProducts(); //check it
       }
     } catch (error) {
       console.log(error);
@@ -40,16 +40,16 @@ function Userlist() {
   return (
     <>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">User-List</h1>
-        <Link to="/portal/create-user" className="d-none d-sm-inline-block  btn-sm btn btn-success shadow-sm">
+        <h1 className="h3 mb-0 text-gray-800">Nurse-List</h1>
+        <Link to="/portal/NurseCreate" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
           <FontAwesomeIcon icon={faUser} className="creatinguser mr-2" />
-          Create User
+          Add-Nurse
         </Link>
       </div>
       {/* <!-- DataTables --> */}
       <div className="card shadow mb-4">
         <div className="card-header py-3">
-          <h6 className="m-0 font-weight-bold text-primary">DataTables</h6>
+          <h6 className="m-0 font-weight-bold text-success">DataTables</h6>
         </div>
         <div className="card-body">
           {
@@ -59,32 +59,39 @@ function Userlist() {
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Name</th>
-                      <th>E-Mail</th>
-                      <th>City</th>
+                      <th> Name</th>
+                      <th>Email</th>
+                      <th> image</th>
+                      <th>Fees</th>
+                      <th>Spacfication</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>E-mail</th>
-                      <th>City</th>
+                    <th>Id</th>
+                      <th> Name</th>
+                      <th>Email</th>
+                      <th> image</th>
+                      <th>Fees</th>
+                      <th>Spacfication</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    {userList.map((user) => {
+                    {productList.map((user) => {
                       return (
                         <tr>
                           <td>{user.id}</td>
                           <td>{user.username}</td>
                           <td>{user.email}</td>
+                          <td>{user.email}</td>
                           <td>{user.city}</td>
+                          <td>{user.state}</td>
+
                           <th>
-                            <Link to={`/portal/user-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
-                            <Link to={`/portal/user-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
+                            <Link to={`/portal/NurseView/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
+                            <Link to={`/portal/NurseEdit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
                             <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                           </th>
                         </tr>
@@ -101,4 +108,4 @@ function Userlist() {
   )
 }
 
-export default Userlist
+export default Nurselist
