@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-function Userlist() {
+function Adminlist() {
 
   const [userList, setUserList] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -40,10 +40,10 @@ function Userlist() {
   return (
     <>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">User-List</h1>
-        <Link to="/portal/create-user" className="d-none d-sm-inline-block  btn-sm btn btn-success shadow-sm">
+        <h1 className="h3 mb-0 text-gray-800">Admin-List</h1>
+        <Link to="/portal/create-admin" className="d-none d-sm-inline-block  btn-sm btn btn-success shadow-sm">
           <FontAwesomeIcon icon={faUser} className="creatinguser mr-2" />
-          Create User
+          Creat Admin 
         </Link>
       </div>
       {/* <!-- DataTables --> */}
@@ -83,8 +83,8 @@ function Userlist() {
                           <td>{user.email}</td>
                           <td>{user.city}</td>
                           <th>
-                            <Link to={`/portal/user-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
-                            <Link to={`/portal/user-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
+                            <Link to={`/portal/admin-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
+                            <Link to={`/portal/admin-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
                             <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                           </th>
                         </tr>
@@ -101,4 +101,4 @@ function Userlist() {
   )
 }
 
-export default Userlist
+export default  Adminlist

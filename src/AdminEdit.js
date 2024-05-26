@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-function UserEdit() {
+function AdminEdit() {
     const params = useParams();
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -122,4 +122,4 @@ function UserEdit() {
     )
 }
 
-export default UserEdit
+export default AdminEdit

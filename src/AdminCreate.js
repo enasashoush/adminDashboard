@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function UserCreate() {
+function AdminCreate() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -107,4 +107,4 @@ function UserCreate() {
   );
 }
 
-export default UserCreate
+export default AdminCreate

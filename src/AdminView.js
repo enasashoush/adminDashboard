@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-function UserView() {
+function AdminView() {
     const params = useParams();
     const [userList, setUserList] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -74,4 +74,4 @@ function UserView() {
     )
 }
 
-export default UserView
+export default AdminView

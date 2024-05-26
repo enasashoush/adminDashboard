@@ -4,11 +4,7 @@ import "@fortawesome/fontawesome-free"
 import Dashboard from './Dashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
-import Userlist from './Userlist';
 import Portal from './Portal';
-import UserCreate from './UserCreate';
-import UserView from './UserView';
-import UserEdit from './UserEdit';
 import Productlist from './ProductList';
 import ProductCreate from './ProductCreate';
 import ProductView from './ProductView';
@@ -19,6 +15,10 @@ import NurseCreate from './NurseCreate';
 import Nurselist from './NuresList';
 import NurseEdit from './NurseEdit';
 import NurseView from './NurseView';
+import AdminCreate from './AdminCreate';
+import AdminView from './AdminView';
+import Adminlist from './Adminlist';
+import AdminEdit from './AdminEdit';
 
 function App() {
   return (
@@ -27,11 +27,11 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='/portal' element={<Portal />}>
           <Route path='dashboard' element={<Dashboard />} />
-          <Route path='user-list' element={<Userlist />} />
+          <Route path='admin-list' element={< Adminlist />} />
           <Route path=' Orderlist' element={< Orderlist/>}/>
-          <Route path='create-user' element={<UserCreate />} />
-          <Route path='user-view/:id' element={<UserView />} />
-          <Route path='user-edit/:id' element={<UserEdit />} />
+          <Route path='create-admin' element={<AdminCreate />} />
+          <Route path='admin-view/:id' element={<AdminView />} />
+          <Route path='admin-edit/:id' element={<AdminEdit />} />
           <Route path='product-list' element={<Productlist />} />
           <Route path='create-product' element={<ProductCreate />} />
           <Route path='product-view/:id' element={<ProductView />} />
