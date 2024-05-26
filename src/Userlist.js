@@ -62,8 +62,6 @@ function Userlist() {
                       <th>Name</th>
                       <th>E-Mail</th>
                       <th>City</th>
-                      <th>State</th>
-                      <th>Country</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -73,8 +71,6 @@ function Userlist() {
                       <th>Name</th>
                       <th>E-mail</th>
                       <th>City</th>
-                      <th>State</th>
-                      <th>Country</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -86,8 +82,6 @@ function Userlist() {
                           <td>{user.username}</td>
                           <td>{user.email}</td>
                           <td>{user.city}</td>
-                          <td>{user.state}</td>
-                          <td>{user.country}</td>
                           <th>
                             <Link to={`/portal/user-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
                             <Link to={`/portal/user-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>

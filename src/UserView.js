@@ -45,8 +45,6 @@ function UserView() {
                                             <th>Name</th>
                                             <th>E-Mail</th>
                                             <th>City</th>
-                                            <th>State</th>
-                                            <th>Country</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -55,8 +53,6 @@ function UserView() {
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>City</th>
-                                            <th>State</th>
-                                            <th>Country</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -65,8 +61,7 @@ function UserView() {
                                             <td> {userList.username} </td>
                                             <td>{userList.email}</td>
                                             <td>{userList.city}</td>
-                                            <td>{userList.state}</td>
-                                            <td>{userList.country}</td>
+                                          
                                         </tr>
                                     </tbody>
                                 </table>

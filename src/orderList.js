@@ -41,10 +41,6 @@ function Orderlist() {
     <>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Order-List</h1>
-        <Link to="/portal/create-user" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <FontAwesomeIcon icon={faUser} className="creatinguser mr-2" />
-          Create User
-        </Link>
       </div>
       {/* <!-- DataTables --> */}
       <div className="card shadow mb-4">
@@ -59,22 +55,18 @@ function Orderlist() {
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Name</th>
-                      <th>E-Mail</th>
-                      <th>City</th>
-                      <th>State</th>
-                      <th>Country</th>
+                      <th>User Name</th>
+                      <th> User E-Mail</th>
+                      <th>Orders</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>E-mail</th>
-                      <th>City</th>
-                      <th>State</th>
-                      <th>Country</th>
+                    <th>Id</th>
+                      <th>User Name</th>
+                      <th>User E-Mail</th>
+                      <th>Orders</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -86,11 +78,8 @@ function Orderlist() {
                           <td>{user.username}</td>
                           <td>{user.email}</td>
                           <td>{user.city}</td>
-                          <td>{user.state}</td>
-                          <td>{user.country}</td>
                           <th>
-                            <Link to={`/portal/user-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
-                            <Link to={`/portal/user-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
+                            <Link to={`/portal/OrderView/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
                             <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                           </th>
                         </tr>

@@ -13,11 +13,8 @@ import Productlist from './ProductList';
 import ProductCreate from './ProductCreate';
 import ProductView from './ProductView';
 import ProductEdit from './ProductEdit';
-import Categorylist from './Categorylist';
-import CategoryCreate from './CategoryCreate';
-import CategoryView from './CategoryView';
-import CategoryEdit from './CategoryEdit';
 import Orderlist from './orderList';
+import OrderView from './orderView';
 
 function App() {
   return (
@@ -35,11 +32,7 @@ function App() {
           <Route path='create-product' element={<ProductCreate />} />
           <Route path='product-view/:id' element={<ProductView />} />
           <Route path='product-edit/:id' element={<ProductEdit />} />
-          <Route path='category-list' element={<Categorylist />} />
-          <Route path='create-category' element={<CategoryCreate />} />
-          <Route path='category-view/:id' element={<CategoryView />} />
-          <Route path='category-edit/:id' element={<CategoryEdit />} />
-
+          <Route path='OrderView/:id' element={<OrderView/>}/>
 
 
 
