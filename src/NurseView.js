@@ -12,7 +12,7 @@ function NurseView() {
         getUsers();
         console.log("welcome to userview");
     }, []);
-
+ 
     let getUsers = async () => {
         try {
             const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
@@ -45,16 +45,20 @@ function NurseView() {
                                             <th> Name</th>
                                             <th>Email</th>
                                             <th> image</th>
+                                            <th> Hospital</th>
+                                            <th> Specialty</th>
                                             <th>Fees</th>
                                             <th>Spacfication</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Id</th>
+                                        <th>Id</th>
                                             <th> Name</th>
                                             <th>Email</th>
                                             <th> image</th>
+                                            <th> Hospital</th>
+                                            <th> Specialty</th>
                                             <th>Fees</th>
                                             <th>Spacfication</th>
                                         </tr>
@@ -65,6 +69,8 @@ function NurseView() {
                                             <td> {userList.username} </td>
                                             <td>{userList.email}</td>
                                             <td>{userList.email}</td>
+                                            <td>{userList.city}</td>
+                                            <td>{userList.city}</td>
                                             <td>{userList.city}</td>
                                             <td>{userList.city}</td>
 

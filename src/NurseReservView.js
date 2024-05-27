@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-function OrderView() {
+function ReservationView() {
     const params = useParams();
     const [userList, setUserList] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -28,10 +28,10 @@ function OrderView() {
 
     return (
         <>
-            <div>OrderView - {params.id}</div>
+            <div>Reservation View - {params.id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">OrderView</h6>
+                    <h6 className="m-0 font-weight-bold text-primary">Reservation View</h6>
                 </div>
                 <div className="card-body">
                     {
@@ -41,13 +41,12 @@ function OrderView() {
                                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                                     <thead>
                                         <tr>
-                                        <th>Id</th>
-                      <th>User E-Mail</th>
-                      <th>Orders</th>
-                      <th>orderDate</th>
-                      <th>shippingAddress</th>
-                      <th>deliveryMethodCost</th>
-                      <th>Total Order COSt</th>
+                                            <th>Id</th>
+                                            <th>Nurse Name</th>
+                                            <th>Booking Date</th>
+                                            <th>Patint Name</th>
+                                            <th>Patint Address</th>
+                                            <th>Fees</th>
 
 
                                         </tr>
@@ -55,12 +54,11 @@ function OrderView() {
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>User E-Mail</th>
-                                            <th>Orders</th>
-                                            <th>orderDate</th>
-                                            <th>shippingAddress</th>
-                                            <th>deliveryMethodCost</th>
-                                            <th>Total Order COSt</th>
+                                            <th>Nurse Name</th>
+                                            <th>Booking Date</th>
+                                            <th>Patint Name</th>
+                                            <th>Patint Address</th>
+                                            <th>Fees</th>
 
                                         </tr>
                                     </tfoot>
@@ -72,7 +70,7 @@ function OrderView() {
                                             <td>{userList.city}</td>
                                             <td>{userList.city}</td>
                                             <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
+
 
 
                                         </tr>
@@ -87,4 +85,4 @@ function OrderView() {
     )
 }
 
-export default OrderView
+export default ReservationView

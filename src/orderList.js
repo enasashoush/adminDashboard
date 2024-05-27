@@ -54,19 +54,21 @@ function Orderlist() {
                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>User Name</th>
-                      <th> User E-Mail</th>
-                      <th>Orders</th>
+                    <th>Id</th>
+                      <th>User E-Mail</th>
+                      <th>orderDate</th>
+                      <th>shippingAddress  city only</th>
+                      <th>Total Order COSt</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                     <th>Id</th>
-                      <th>User Name</th>
                       <th>User E-Mail</th>
-                      <th>Orders</th>
+                      <th>orderDate</th>
+                      <th>shippingAddress  city only</th>
+                      <th>Total Order COSt</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -78,6 +80,8 @@ function Orderlist() {
                           <td>{user.username}</td>
                           <td>{user.email}</td>
                           <td>{user.city}</td>
+                          <td>{user.city}</td>
+
                           <th>
                             <Link to={`/portal/OrderView/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
                             <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>

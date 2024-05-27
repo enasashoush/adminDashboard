@@ -60,21 +60,16 @@ function Productlist() {
                     <tr>
                       <th>Id</th>
                       <th>product Name</th>
-                      <th>product image</th>
                       <th>product Price</th>
-                      <th>Product description</th>
-                      <th>product rate</th>
                       <th>category</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Id</th>
+                    <th>Id</th>
                       <th>product Name</th>
                       <th>product Price</th>
-                      <th>Product description</th>
-                      <th>product rate</th>
                       <th>category</th>
                       <th>Action</th>
                     </tr>
@@ -86,9 +81,6 @@ function Productlist() {
                           <td>{user.id}</td>
                           <td>{user.username}</td>
                           <td>{user.email}</td>
-                          <td>{user.city}</td>
-                          <td>{user.state}</td>
-                          <td>{user.country}</td>
                           <td>{user.country}</td>
 
                           <th>

@@ -50,9 +50,15 @@ function Sidebar() {
                 </Link>
             </li>
             <li className="nav-item active">
-                <Link className="nav-link" to="/portal/ Orderlist">
+                <Link className="nav-link" to="/portal/Orderlist">
                     <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
                     <span>Orders</span>
+                </Link>
+            </li>
+            <li className="nav-item active">
+                <Link className="nav-link" to="/portal/Reservationlist">
+                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                    <span>Reservation</span>
                 </Link>
             </li>
 

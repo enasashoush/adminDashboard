@@ -10,7 +10,7 @@ function Nurselist() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    //On Load
+    //On Load 
     getProducts();
     console.log("welcome");
   }, []);
@@ -61,9 +61,8 @@ function Nurselist() {
                       <th>Id</th>
                       <th> Name</th>
                       <th>Email</th>
-                      <th> image</th>
                       <th>Fees</th>
-                      <th>Spacfication</th>
+                      <th>Hospital</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -72,9 +71,9 @@ function Nurselist() {
                     <th>Id</th>
                       <th> Name</th>
                       <th>Email</th>
-                      <th> image</th>
+                      
                       <th>Fees</th>
-                      <th>Spacfication</th>
+                      <th>Hospital</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -84,7 +83,6 @@ function Nurselist() {
                         <tr>
                           <td>{user.id}</td>
                           <td>{user.username}</td>
-                          <td>{user.email}</td>
                           <td>{user.email}</td>
                           <td>{user.city}</td>
                           <td>{user.state}</td>

@@ -47,6 +47,7 @@ function ProductView() {
                                             <th>Product description</th>
                                             <th>product rate</th>
                                             <th>category</th>
+                                            <th>product Image</th>
                                             
                                         </tr>
                                     </thead>
@@ -58,6 +59,7 @@ function ProductView() {
                                             <th>Product description</th>
                                             <th>product rate</th>
                                             <th>category</th>
+                                            <th>product Image</th>
                                           
                                         </tr>
                                     </tfoot>
@@ -68,6 +70,7 @@ function ProductView() {
                                             <td>{productList.email}</td>
                                             <td>{productList.city}</td>
                                             <td>{productList.state}</td>
+                                            <td>{productList.country}</td>
                                             <td>{productList.country}</td>
                                         </tr>
                                     </tbody>

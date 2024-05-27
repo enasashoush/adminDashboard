@@ -10,7 +10,7 @@ function NurseEdit() {
     useEffect(() => {
         getProductData()
     }, [])
-
+ 
     let getProductData = async () => {
         try {
             const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
@@ -87,7 +87,12 @@ function NurseEdit() {
                                 className={`form-control ${myFormik.errors.username ? "is-invalid" : ""} `} />
                             <span style={{ color: "red" }}>{myFormik.errors.username}</span>
                         </div>
-
+                        <div className="col-lg-6">
+                            <label>Email</label>
+                            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+                                className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+                            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+                        </div>
                         <div className="col-lg-6">
                             <label>Fees</label>
                             <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
@@ -97,6 +102,18 @@ function NurseEdit() {
 
                         <div className="col-lg-6">
                             <label>Spacfication</label>
+                            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+                                className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+                            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+                        </div>
+                        <div className="col-lg-6">
+                            <label>Hospital</label>
+                            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+                                className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+                            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+                        </div>
+                        <div className="col-lg-6">
+                            <label>Specialty</label>
                             <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
                                 className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
                             <span style={{ color: "red" }}>{myFormik.errors.email}</span>

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function NurseCreate() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+ 
   const myFormik = useFormik(
     {
       initialValues: {
@@ -90,6 +90,18 @@ function NurseCreate() {
           </div>
           <div className="col-lg-6">
             <label>Spacfication</label>
+            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+              className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+          </div>
+          <div className="col-lg-6">
+            <label>Hospital</label>
+            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
+              className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
+            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+          </div>
+          <div className="col-lg-6">
+            <label>Specialty</label>
             <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
               className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
             <span style={{ color: "red" }}>{myFormik.errors.email}</span>

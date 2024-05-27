@@ -19,6 +19,8 @@ import AdminCreate from './AdminCreate';
 import AdminView from './AdminView';
 import Adminlist from './Adminlist';
 import AdminEdit from './AdminEdit';
+import Reservationlist from './NurseReservList';
+import ReservationView from './NurseReservView';
 
 function App() {
   return (
@@ -28,7 +30,7 @@ function App() {
         <Route path='/portal' element={<Portal />}>
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='admin-list' element={< Adminlist />} />
-          <Route path=' Orderlist' element={< Orderlist/>}/>
+          <Route path='Orderlist' element={< Orderlist/>}/>
           <Route path='create-admin' element={<AdminCreate />} />
           <Route path='admin-view/:id' element={<AdminView />} />
           <Route path='admin-edit/:id' element={<AdminEdit />} />
@@ -41,6 +43,10 @@ function App() {
           <Route path='Nurselist' element={<Nurselist/>}/>
           <Route path='NurseEdit/:id' element={<NurseEdit/>}/>
           <Route path='NurseView/:id' element={<NurseView/>}/>
+          <Route path='ReservationView/:id' element={<ReservationView/>}/>
+          <Route path='Reservationlist' element={< Reservationlist/>}/>
+
+
         </Route>
       </Routes>
     </BrowserRouter>
