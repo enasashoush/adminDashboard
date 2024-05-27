@@ -41,13 +41,6 @@ function App() {
           <Route path='Nurselist' element={<Nurselist/>}/>
           <Route path='NurseEdit/:id' element={<NurseEdit/>}/>
           <Route path='NurseView/:id' element={<NurseView/>}/>
-
-
-
-
-
-
-
         </Route>
       </Routes>
     </BrowserRouter>
