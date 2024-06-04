@@ -1,23 +1,24 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { API_BASE_URL } from './config';
 
 function NurseView() {
-    const params = useParams();
-    const [userList, setUserList] = useState([]);
+    const {id} = useParams();
+    const [nurseList, setNurseList] = useState([]);
     const [isLoading, setLoading] = useState(true);
-
+ 
     useEffect(() => {
         //On Load
-        getUsers();
+        getNurse();
         console.log("welcome to userview");
     }, []);
  
-    let getUsers = async () => {
+    let getNurse = async () => {
         try {
-            const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
+            const {data}= await axios.get(`${API_BASE_URL}/api/Nurse/${id}`);
             // console.log(user);
-            setUserList(user.data);
+            setNurseList(data);
             // console.log(userList);
             setLoading(false);
         } catch (error) {
@@ -28,7 +29,7 @@ function NurseView() {
 
     return (
         <>
-            <div>NurseView - {params.id}</div>
+            <div>NurseView - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
                     <h6 className="m-0 font-weight-bold text-primary">NurseView</h6>
@@ -44,11 +45,11 @@ function NurseView() {
                                             <th>Id</th>
                                             <th> Name</th>
                                             <th>Email</th>
-                                            <th> image</th>
                                             <th> Hospital</th>
                                             <th> Specialty</th>
                                             <th>Fees</th>
                                             <th>Spacfication</th>
+                                            <th> image</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -56,23 +57,23 @@ function NurseView() {
                                         <th>Id</th>
                                             <th> Name</th>
                                             <th>Email</th>
-                                            <th> image</th>
                                             <th> Hospital</th>
                                             <th> Specialty</th>
                                             <th>Fees</th>
                                             <th>Spacfication</th>
+                                            <th> image</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>{userList.id}</td>
-                                            <td> {userList.username} </td>
-                                            <td>{userList.email}</td>
-                                            <td>{userList.email}</td>
-                                            <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
+                                            <td>{nurseList.id}</td>
+                                            <td> {nurseList.nurseName} </td>
+                                            <td>{nurseList.email}</td>
+                                            <td>{nurseList.hospital}</td>
+                                            <td>{nurseList.specialty}</td>
+                                            <td>{nurseList.price}</td>
+                                            <td>{nurseList.description}</td>
+                                            <img className=' w-100' src={nurseList.picUrl}/>
 
                                         </tr>
                                     </tbody>

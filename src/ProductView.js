@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { API_BASE_URL } from './config';
 
 function ProductView() {
-    const params = useParams();
+    const {id} = useParams();
     const [productList, setProductList] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
@@ -15,9 +16,9 @@ function ProductView() {
 
     let getProducts = async () => {
         try {
-            const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
+            const {data} = await axios.get(`${API_BASE_URL}/api/Products/${id}`);
             // console.log(user);
-            setProductList(user.data);
+            setProductList(data);
             // console.log(userList);
             setLoading(false);
         } catch (error) {
@@ -28,10 +29,10 @@ function ProductView() {
 
     return (
         <>
-            <div>ProductView - {params.id}</div>
+            <div>ProductView - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">ProductView</h6>
+                    <h6 className="m-0 font-weight-bold text-successx">ProductView</h6>
                 </div>
                 <div className="card-body">
                     {
@@ -66,12 +67,13 @@ function ProductView() {
                                     <tbody>
                                         <tr>
                                             <td>{productList.id}</td>
-                                            <td> {productList.username} </td>
-                                            <td>{productList.email}</td>
-                                            <td>{productList.city}</td>
-                                            <td>{productList.state}</td>
-                                            <td>{productList.country}</td>
-                                            <td>{productList.country}</td>
+                                            <td>{productList.name} </td>
+                                            <td>{productList.price}</td>
+                                            <td>{productList.description}</td>
+                                            <td>{productList.rate}</td>
+                                            <td>{productList.category}</td>
+                                            <img className='image-fluid w-25' src={productList.pictureUrl}/>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>

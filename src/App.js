@@ -1,56 +1,76 @@
+import { Component } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'react-hot-toast';
+import { Offline } from 'react-detect-offline';
 import './App.css';
 import "./sb-admin-2.min.css";
-import "@fortawesome/fontawesome-free"
-import Dashboard from './Dashboard';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Login';
-import Portal from './Portal';
+import "@fortawesome/fontawesome-free";
 import Productlist from './ProductList';
+import Dashboard from './Dashboard';
+import Userlist from './Userlist';
+import UserView from './UserView';
+import Portal from './Portal';
+import Login from './Login';
+import Orderlist from './orderList';
 import ProductCreate from './ProductCreate';
 import ProductView from './ProductView';
 import ProductEdit from './ProductEdit';
-import Orderlist from './orderList';
 import OrderView from './orderView';
 import NurseCreate from './NurseCreate';
 import Nurselist from './NuresList';
 import NurseEdit from './NurseEdit';
 import NurseView from './NurseView';
-import AdminCreate from './AdminCreate';
-import AdminView from './AdminView';
-import Adminlist from './Adminlist';
-import AdminEdit from './AdminEdit';
-import Reservationlist from './NurseReservList';
 import ReservationView from './NurseReservView';
+import Reservationlist from './NurseReservList';
+import { AuthProvider } from './authContext';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/portal' element={<Portal />}>
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='admin-list' element={< Adminlist />} />
-          <Route path='Orderlist' element={< Orderlist/>}/>
-          <Route path='create-admin' element={<AdminCreate />} />
-          <Route path='admin-view/:id' element={<AdminView />} />
-          <Route path='admin-edit/:id' element={<AdminEdit />} />
-          <Route path='product-list' element={<Productlist />} />
-          <Route path='create-product' element={<ProductCreate />} />
-          <Route path='product-view/:id' element={<ProductView />} />
-          <Route path='product-edit/:id' element={<ProductEdit />} />
-          <Route path='OrderView/:id' element={<OrderView/>}/>
-          <Route path='NurseCreate' element={<NurseCreate/>}/>
-          <Route path='Nurselist' element={<Nurselist/>}/>
-          <Route path='NurseEdit/:id' element={<NurseEdit/>}/>
-          <Route path='NurseView/:id' element={<NurseView/>}/>
-          <Route path='ReservationView/:id' element={<ReservationView/>}/>
-          <Route path='Reservationlist' element={< Reservationlist/>}/>
+const router = createBrowserRouter([
+  {
 
+    path: '', element: <Portal />, children: [
+      { path: "login", element: <Login /> },
+      { index: true, element: <Dashboard /> },
+      { path: 'user-list', element: <Userlist /> },
+      { path: 'orderlist', element: <Orderlist /> },
+      { path: 'user-view/:id', element: <UserView /> },
+      { path: 'product-list', element: <Productlist /> },
+      { path: 'create-product', element: <ProductCreate /> },
+      { path: 'product-view/:id', element: <ProductView /> },
+      { path: 'product-edit/:id', element: <ProductEdit /> },
+      { path: 'order-view/:id', element: <OrderView /> },
+      { path: 'nurse-create', element: <NurseCreate /> },
+      { path: 'nurselist', element: <Nurselist /> },
+      { path: 'nurse-edit/:id', element: <NurseEdit /> },
+      { path: 'nurse-view/:id', element: <NurseView /> },
+      { path: 'reservation-view/:id', element: <ReservationView /> },
+      { path: 'reservationlist', element: <Reservationlist /> }
+    ]
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  }
+]);
+
+export default class App extends Component {
+  state = {}
+
+  render() {
+    let queryClient = new QueryClient();
+
+    return (
+      <>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <RouterProvider router={router} />
+            <Toaster />
+          </AuthProvider>
+
+        </QueryClientProvider>
+        <Offline>
+          <div className="bg-dark position-fixed text-white bottom-0 start-0 p-3 rounded-3">
+            Ooops.... You Are Offline
+          </div>
+        </Offline>
+      </>
+    );
+  }
 }
-
-export default App;

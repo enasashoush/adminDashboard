@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { API_BASE_URL } from './config';
 
-function AdminView() {
-    const params = useParams();
+function UserView() {
+    const { id } = useParams();
     const [userList, setUserList] = useState([]);
     const [isLoading, setLoading] = useState(true);
-
     useEffect(() => {
         //On Load
         getUsers();
@@ -15,10 +15,10 @@ function AdminView() {
 
     let getUsers = async () => {
         try {
-            const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
-            // console.log(user);
-            setUserList(user.data);
-            // console.log(userList);
+            const { data } = await axios.get(`${API_BASE_URL}/api/Account/users/${id}`);
+            console.log(data);
+
+            setUserList(data);
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -28,7 +28,7 @@ function AdminView() {
 
     return (
         <>
-            <div>UserView - {params.id}</div>
+            <div>UserView - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
                     <h6 className="m-0 font-weight-bold text-primary">UserView</h6>
@@ -44,7 +44,7 @@ function AdminView() {
                                             <th>Id</th>
                                             <th>Name</th>
                                             <th>E-Mail</th>
-                                            <th>City</th>
+                                            <th>Phone Number</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -52,16 +52,16 @@ function AdminView() {
                                             <th>Id</th>
                                             <th>Name</th>
                                             <th>E-mail</th>
-                                            <th>City</th>
+                                            <th>Phone Number</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
                                             <td>{userList.id}</td>
-                                            <td> {userList.username} </td>
+                                            <td> {userList.displayName} </td>
                                             <td>{userList.email}</td>
-                                            <td>{userList.city}</td>
-                                          
+                                            <td>{userList.phoneNumber}</td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -74,4 +74,4 @@ function AdminView() {
     )
 }
 
-export default AdminView
+export default UserView

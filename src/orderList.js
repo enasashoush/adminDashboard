@@ -3,22 +3,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_BASE_URL } from './config'
 
 function Orderlist() {
 
-  const [userList, setUserList] = useState([]);
+  const [orderList, setOrderList] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     //On Load
-    getUsers();
+    getOrders();
     console.log("welcome");
   }, []);
 
-  let getUsers = async () => {
+  let getOrders= async () => {
     try {
-      const users = await axios.get("https://63a9bccb7d7edb3ae616b639.mockapi.io/users");
-      setUserList(users.data);
+      const {data} = await axios.get(`${API_BASE_URL}/api/Nurse`);
+      setOrderList(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -29,8 +30,8 @@ function Orderlist() {
     try {
       const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
       if (confirmDelete) {
-        await axios.delete(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${id}`);
-        getUsers();
+        await axios.delete(`${API_BASE_URL}/api/Nurse/${id}`);
+        getOrders();
       }
     } catch (error) {
       console.log(error);
@@ -73,7 +74,7 @@ function Orderlist() {
                     </tr>
                   </tfoot>
                   <tbody>
-                    {userList.map((user) => {
+                    {orderList.map((user) => {
                       return (
                         <tr>
                           <td>{user.id}</td>

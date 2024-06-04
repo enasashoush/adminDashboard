@@ -3,34 +3,43 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_BASE_URL } from './config'
 
 function Reservationlist() {
 
-    const [userList, setUserList] = useState([]);
+    const [reservList, setReservList] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         //On Load
-        getUsers();
-        console.log("welcome");
+        getAppointments();
+        console.log("welcome reserv");
     }, []);
 
-    let getUsers = async () => {
+    let getAppointments = async () => {
         try {
-            const users = await axios.get("https://63a9bccb7d7edb3ae616b639.mockapi.io/users");
-            setUserList(users.data);
+            const { data } = await axios.get(`${API_BASE_URL}/api/Nurse/all-appointments`);
+            setReservList(data);
             setLoading(false);
         } catch (error) {
             console.log(error);
         }
+    }
+    if (!Array.isArray(reservList)) {
+        console.error("Expected data to be an array, but got:", reservList);
+        return (
+            <div className="d-flex vh-100 justify-content-center align-items-center">
+                <p>Unexpected data format</p>
+            </div>
+        );
     }
 
     let handleDelete = async (id) => {
         try {
             const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
             if (confirmDelete) {
-                await axios.delete(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${id}`);
-                getUsers();
+                await axios.delete(`$${API_BASE_URL}/api/Nurse/cancel-appointment/${id}`);
+                getAppointments();
             }
         } catch (error) {
             console.log(error);
@@ -45,7 +54,7 @@ function Reservationlist() {
             {/* <!-- DataTables --> */}
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">DataTables</h6>
+                    <h6 className="m-0 font-weight-bold text-success">DataTables</h6>
                 </div>
                 <div className="card-body">
                     {
@@ -77,18 +86,18 @@ function Reservationlist() {
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {userList.map((user) => {
+                                        {reservList.map((appointment) => {
                                             return (
                                                 <tr>
-                                                    <td>{user.id}</td>
-                                                    <td> {user.username} </td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.city}</td>
-                                                    <td>{user.city}</td>
+                                                    <td>{appointment.id}</td>
+                                                    <td> {appointment.nurseName} </td>
+                                                    <td>Start Date: {appointment.startTime} - End Date {appointment.endTime}</td>
+                                                    <td>{appointment.patientName}</td>
+                                                    <td>{appointment.street}</td>
+                                                    <td>{appointment.price}</td>
                                                     <th>
-                                                        <Link to={`/portal/ReservationView/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
-                                                        <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
+                                                        <Link to={`/ReservationView/${appointment.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
+                                                        <button onClick={() => handleDelete(appointment.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                                                     </th>
                                                 </tr>
                                             )

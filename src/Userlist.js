@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_BASE_URL } from './config'
 
-function Adminlist() {
+function Userlist() {
 
   const [userList, setUserList] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -17,19 +18,26 @@ function Adminlist() {
 
   let getUsers = async () => {
     try {
-      const users = await axios.get("https://63a9bccb7d7edb3ae616b639.mockapi.io/users");
-      setUserList(users.data);
+      const {data} = await axios.get(`${API_BASE_URL}/api/Account/normalUsers`);
+      setUserList(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
-
+  if (!Array.isArray(userList)) {
+    console.error("Expected data to be an array, but got:", userList);
+    return (
+        <div className="d-flex vh-100 justify-content-center align-items-center">
+            <p>Unexpected data format</p>
+        </div>
+    );
+}
   let handleDelete = async (id) => {
     try {
       const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
       if (confirmDelete) {
-        await axios.delete(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/Account/users/${id}`);
         getUsers();
       }
     } catch (error) {
@@ -40,16 +48,12 @@ function Adminlist() {
   return (
     <>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Admin-List</h1>
-        <Link to="/portal/create-admin" className="d-none d-sm-inline-block  btn-sm btn btn-success shadow-sm">
-          <FontAwesomeIcon icon={faUser} className="creatinguser mr-2" />
-          Creat Admin 
-        </Link>
+        <h1 className="h3 mb-0 text-gray-800">User-List</h1>
       </div>
       {/* <!-- DataTables --> */}
       <div className="card shadow mb-4">
         <div className="card-header py-3">
-          <h6 className="m-0 font-weight-bold text-primary">DataTables</h6>
+          <h6 className="m-0 font-weight-bold text-success">DataTables</h6>
         </div>
         <div className="card-body">
           {
@@ -61,7 +65,7 @@ function Adminlist() {
                       <th>Id</th>
                       <th>Name</th>
                       <th>E-Mail</th>
-                      <th>City</th>
+                      <th>Phone Number</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -70,7 +74,7 @@ function Adminlist() {
                       <th>Id</th>
                       <th>Name</th>
                       <th>E-mail</th>
-                      <th>City</th>
+                      <th>Phone Number</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -79,12 +83,11 @@ function Adminlist() {
                       return (
                         <tr>
                           <td>{user.id}</td>
-                          <td>{user.username}</td>
+                          <td>{user.displayName}</td>
                           <td>{user.email}</td>
-                          <td>{user.city}</td>
+                          <td>{user.phoneNumber}</td>
                           <th>
-                            <Link to={`/portal/admin-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
-                            <Link to={`/portal/admin-edit/${user.id}`} className='btn btn-info btn-sm mr-1'>Edit</Link>
+                            <Link to={`/user-view/${user.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
                             <button onClick={() => handleDelete(user.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                           </th>
                         </tr>
@@ -101,4 +104,4 @@ function Adminlist() {
   )
 }
 
-export default  Adminlist
+export default  Userlist

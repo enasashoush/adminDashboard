@@ -1,142 +1,186 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from './config';
+import { FallingLines } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
 function ProductCreate() {
   const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [getAllCategory, setGetAllCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const navigate = useNavigate();
 
-  const myFormik = useFormik(
-    {
-      initialValues: {
-        productName: "",
-        price: "",
-        description: "",
-        rate: "",
-        category: "",
-        image: ""
-      },
-      // Validating Forms while entering the data
-      validate: (values) => {
-        let errors = {}           //Validating the form once the error returns empty else onsubmit won't work
+  useEffect(() => {
+    async function fetchCategory() {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/Products/categories`);
+        setGetAllCategory(response.data);
 
-        if (!values.username) {
-          errors.username = "Please enter username";
-        } else if (values.username.length < 5) {
-          errors.username = "Name shouldn't be less than 3 letters";
-        } else if (values.username.length > 20) {
-          errors.username = "Name shouldn't be more than 20 letters";
-        }
+      } catch (error) {
+        console.error('Error fetching Get All Category:', error);
+      }
+    }
+    fetchCategory();
+  }, []);
 
-        if (!values.email) {
-          errors.email = "Please enter email";
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-          errors.email = 'Invalid email address';
-        }
+  let product = {
+    name: '',
+    price: '',
+    description: '',
+    rate: '',
+    pictureUrl: ''
 
-        if (!values.city) {
-          errors.city = "Please select any one city";
-        }
+  }
+  async function createProduct(values) {
+    try {
 
-        if (!values.state) {
-          errors.state = "Please select any one state";
-        }
 
-        if (!values.country) {
-          errors.country = "Please select any one state";
-        }
+      const { data } = await axios.post(`${API_BASE_URL}/api/Products`, {
+        ...values,
+        categoryId: selectedCategory
 
-        return errors;
-      },
-      //one can be able to submit once the validates returns empty value (validation successful) else can't be submitted
-      onSubmit: async (values) => {
-        try {
-          setLoading(true);
-          await axios.post("https://63a9bccb7d7edb3ae616b639.mockapi.io/users", values);
-          navigate("/portal/user-list");
-        } catch (error) {
-          console.log(error);
-          alert("Validation failed");
-          setLoading(false);
-        }
+      });
+      console.log("ALL data", data);
+      if (data) {
+        toast.success("product has been created");
+        setTimeout(function () {
+          navigate("/product-list");
+        }, 1000);
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+    setLoading(false)
+  }
 
-        console.log(values);
+
+
+  const myFormik = useFormik({
+    initialValues: product,
+    onSubmit: createProduct,
+    validate: (values) => {
+      let errors = {};
+
+      if (!values.name) {
+        errors.name = "Please enter product name";
+      } else if (values.name.length < 5) {
+        errors.name = "Name shouldn't be less than 5 letters";
       }
 
-    });
+      if (values.description.length < 5) {
+        errors.description = "Description shouldn't be less than 5 letters";
+      } else if (values.description.length > 200) {
+        errors.description = "Description shouldn't be more than 200 letters";
+      }
+
+      if (!values.price) {
+        errors.price = "Please add product price";
+      }
+
+      if (!values.rate) {
+        errors.rate = "Please enter product rate";
+      } else if (values.rate > 5) {
+        errors.rate = "Rate shouldn't be more than 5";
+      }
+
+      if (!values.pictureUrl) {
+        errors.pictureUrl = "Please add product image";
+      }
+
+      if (!selectedCategory) {
+        errors.selectedCategory = "Please select a category";
+      }
+
+      return errors;
+    }
+  });
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      const lastSlashIndex = fileName.lastIndexOf('/');
+      const imageName = lastSlashIndex !== -1 ? fileName.substring(lastSlashIndex + 1) : fileName;
+      const imageURL = `Img/${imageName}`; // Assuming "Img" is the last folder name
+      myFormik.setFieldValue("pictureUrl", imageURL); // Set the image URL with the last folder name
+    }
+  };
+
   return (
     <div className='container'>
-
-      <form onSubmit={myFormik.handleSubmit}>
-        <div className='row'>
-          <div className="col-lg-6">
-            <label>Product Name</label>
-            <input name='username' value={myFormik.values.username} onChange={myFormik.handleChange} type={"text"}
-              className={`form-control ${myFormik.errors.username ? "is-invalid" : ""} `} />
-            <span style={{ color: "red" }}>{myFormik.errors.username}</span>
-          </div>
-
-          <div className="col-lg-6">
-            <label>Price</label>
-            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
-              className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
-            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
-          </div>
-          <div className="col-lg-6">
-            <label>Description</label>
-            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
-              className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
-            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
-          </div>
-
-          <div className="col-lg-6">
-            <label>Image</label>
-            <input name='email' value={myFormik.values.email} onChange={myFormik.handleChange} type={"mail"}
-              className={`form-control ${myFormik.errors.email ? "is-invalid" : ""} `} />
-            <span style={{ color: "red" }}>{myFormik.errors.email}</span>
-          </div>
-
-          <div className='col-lg-4'>
-            <label>Rate</label>
-            <select name='city' value={myFormik.values.city} onChange={myFormik.handleChange}
-              className={`form-control ${myFormik.errors.city ? "is-invalid" : ""} `} >
-              <option value="">----Select----</option>
-              <option value="CN">Chennai</option>
-              <option value="KN">Kochin</option>
-              <option value="MU">Mumbai</option>
-              <option value="SA">Seattle</option>
-              <option value="MI">Miami</option>
-              <option value="VB">Virginia Beach</option>
-            </select>
-            <span style={{ color: "red" }}>{myFormik.errors.city}</span>
-          </div>
-
-          <div className='col-lg-4'>
-            <label>Category</label>
-            <select name='state' value={myFormik.values.state} onChange={myFormik.handleChange}
-              className={`form-control ${myFormik.errors.state ? "is-invalid" : ""} `} >
-              <option value="">----Select----</option>
-              <option value="TN">TamilNadu</option>
-              <option value="KL">Kerala</option>
-              <option value="MH">Maharashtra</option>
-              <option value="WA">Washington</option>
-              <option value="FL">Florida</option>
-              <option value="VA">Virginia</option>
-            </select>
-            <span style={{ color: "red" }}>{myFormik.errors.state}</span>
-          </div>
-
-
-          <div className='col-lg-12 mt-3'>
-            
-            <input disabled={isLoading} type="submit" value={isLoading ? "Submitting..." : "Create"} className=' btn btn-success' />
-          </div>
+      <div className='row'>
+        <div className="col-lg-6">
+          <label>Product Name</label>
+          <input name='name' onBlur={myFormik.handleBlur} value={myFormik.values.name} onChange={myFormik.handleChange} type="text"
+            className={`form-control ${myFormik.errors.name && myFormik.touched.name ? "is-invalid" : ""}`} />
+          {myFormik.errors.name && myFormik.touched.name && <span style={{ color: "red" }}>{myFormik.errors.name}</span>}
         </div>
-      </form>
-      {/* {JSON.stringify(myFormik.values)} */}
+
+        <div className="col-lg-6">
+          <label>Price</label>
+          <input name='price' onBlur={myFormik.handleBlur} value={myFormik.values.price} onChange={myFormik.handleChange} type="number"
+            className={`form-control ${myFormik.errors.price && myFormik.touched.price ? "is-invalid" : ""}`} />
+          {myFormik.errors.price && myFormik.touched.price && <span style={{ color: "red" }}>{myFormik.errors.price}</span>}
+        </div>
+
+        <div className="col-lg-6">
+          <label>Description</label>
+          <input name='description' onBlur={myFormik.handleBlur} value={myFormik.values.description} onChange={myFormik.handleChange} type="text"
+            className={`form-control`} />
+        </div>
+
+        <div className='col-lg-6'>
+          <label htmlFor='pictureUrl'>Image :</label>
+          <input onBlur={myFormik.handleBlur} onChange={handleFileChange} id='pictureUrl' type='file'
+            className={`form-control ${myFormik.errors.pictureUrl && myFormik.touched.pictureUrl ? "is-invalid" : ""}`} />
+          {myFormik.errors.pictureUrl && myFormik.touched.pictureUrl && <div className='alert alert-info'>{myFormik.errors.pictureUrl}</div>}
+          {/* <div>Selected Image: {myFormik.values.pictureUrl}</div>  */}
+        </div>
+
+        <div className='col-lg-4'>
+          <label>Rate</label>
+          <input name='rate' onBlur={myFormik.handleBlur} value={myFormik.values.rate} onChange={myFormik.handleChange} type="number"
+            className={`form-control ${myFormik.errors.rate && myFormik.touched.rate ? "is-invalid" : ""}`} />
+          {myFormik.errors.rate && myFormik.touched.rate && <span style={{ color: "red" }}>{myFormik.errors.rate}</span>}
+        </div>
+
+        <div className='col-lg-4'>
+          <label>Category</label>
+          <select
+            name='categoryId'
+            onBlur={myFormik.handleBlur}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className={`form-control ${myFormik.errors.selectedCategory && myFormik.touched.selectedCategory ? "is-invalid" : ""}`}
+          >
+            <option value="">----Select----</option>
+            {getAllCategory.map(category => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          {myFormik.errors.selectedCategory && myFormik.touched.selectedCategory && <span style={{ color: "red" }}>{myFormik.errors.selectedCategory}</span>}
+        </div>
+
+        <div className='col-lg-12 mt-3'>
+          <button disabled={!myFormik.dirty || !myFormik.isValid || isLoading} onClick={myFormik.handleSubmit} type='submit' className='btn btn-success '>
+            {isLoading ? <FallingLines
+              color="#072E33"
+              width="50"
+              visible={true}
+              ariaLabel='falling-lines-loading'
+            /> : 'Create'}
+          </button>
+          {/* <input disabled={isLoading} type="submit" value={isLoading ? "Submitting..." : "Create"} onClick={handleCreateProduct} className='btn btn-success' /> */}
+        </div>
+
+      </div>
     </div>
   );
 }
 
-export default ProductCreate
+export default ProductCreate;

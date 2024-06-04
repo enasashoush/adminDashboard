@@ -1,68 +1,74 @@
 import { faFaceLaughWink, faTachographDigital, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from './authContext';
 
 function Sidebar() {
-    return (
-        <ul className="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+    const { token } = useContext(AuthContext);
 
-            {/* <!-- Sidebar - Brand --> */}
-            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
-                <div className="sidebar-brand-icon rotate-n-15">
-                    <FontAwesomeIcon icon={faFaceLaughWink} size={"2x"} />
-                </div>
-                <div className="sidebar-brand-text mx-3">HealthGuard Admin</div>
-            </a>
+    return (<>
+        {token ? <>
+            <ul className="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            {/* <!-- Divider --> */}
-            <hr className="sidebar-divider my-0" />
+                {/* <!-- Sidebar - Brand --> */}
+                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+                    <div className="sidebar-brand-icon rotate-n-15">
+                        <FontAwesomeIcon icon={faFaceLaughWink} size={"2x"} />
+                    </div>
+                    <div className="sidebar-brand-text mx-3">HealthGuard Admin</div>
+                </a>
 
-            {/* <!-- Nav Item - Dashboard --> */}
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/dashboard">
-                    <FontAwesomeIcon icon={faTachographDigital} style={{ marginRight: "0.5rem" }} />
-                    <span>Dashboard</span>
-                </Link>
-            </li>
-            {/* <!-- Divider --> */}
-            <hr className="sidebar-divider my-0" />
+                {/* <!-- Divider --> */}
+                <hr className="sidebar-divider my-0" />
 
-            {/* <!-- Nav Item - Users --> */}
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/admin-list">
-                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
-                    <span>Admins</span>
-                </Link>
-            </li>
+                {/* <!-- Nav Item - Dashboard --> */}
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/dashboard">
+                        <FontAwesomeIcon icon={faTachographDigital} style={{ marginRight: "0.5rem" }} />
+                        <span>Dashboard</span>
+                    </Link>
+                </li>
+                {/* <!-- Divider --> */}
+                <hr className="sidebar-divider my-0" />
 
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/product-list">
-                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
-                    <i class="fa-brands fa-product-hunt" ></i>
-                    <span>Product</span>
-                </Link>
-            </li>
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/Nurselist">
-                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
-                    <span>Nurses</span>
-                </Link>
-            </li>
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/Orderlist">
-                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
-                    <span>Orders</span>
-                </Link>
-            </li>
-            <li className="nav-item active">
-                <Link className="nav-link" to="/portal/Reservationlist">
-                    <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
-                    <span>Reservation</span>
-                </Link>
-            </li>
+                {/* <!-- Nav Item - Users --> */}
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/user-list">
+                        <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                        <span>Users</span>
+                    </Link>
+                </li>
 
-        </ul>
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/product-list">
+                        <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                        <i class="fa-brands fa-product-hunt" ></i>
+                        <span>Product</span>
+                    </Link>
+                </li>
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/Nurselist">
+                        <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                        <span>Nurses</span>
+                    </Link>
+                </li>
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/Orderlist">
+                        <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                        <span>Orders</span>
+                    </Link>
+                </li>
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/Reservationlist">
+                        <FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />
+                        <span>Reservation</span>
+                    </Link>
+                </li>
+
+            </ul> </> : <> </>} 
+            </>
+
     )
 }
 
