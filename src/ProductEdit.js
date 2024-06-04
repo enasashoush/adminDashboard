@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { API_BASE_URL } from './config';
 import { FallingLines } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 function ProductEdit() {
     const [isLoading, setLoading] = useState(false);
@@ -103,12 +104,15 @@ function ProductEdit() {
             const fileName = file.name;
             const lastSlashIndex = fileName.lastIndexOf('/');
             const imageName = lastSlashIndex !== -1 ? fileName.substring(lastSlashIndex + 1) : fileName;
-            const imageURL = `Img/${imageName}`; // Assuming "Img" is the last folder name
-            myFormik.setFieldValue("pictureUrl", imageURL); // Set the image URL with the last folder name
+            const imageURL = `Img/${imageName}`;
+            myFormik.setFieldValue("pictureUrl", imageURL); 
         }
     };
     return (
         <>
+            <Helmet>
+                <title>Edit Product</title>
+            </Helmet>
             <h3>ProductEdit - Id : {id} </h3>
             <div className='container'>
                 <form onSubmit={myFormik.handleSubmit}>
@@ -176,11 +180,9 @@ function ProductEdit() {
                                     ariaLabel='falling-lines-loading'
                                 /> : 'Update'}
                             </button>
-                            {/* <input disabled={isLoading} type="submit" value={isLoading ? "Submitting..." : "Update"} onClick={handleCreateProduct} className='btn btn-success' /> */}
                         </div>
                     </div>
                 </form>
-                {/* {JSON.stringify(myFormik.values)} */}
             </div>
         </>
 

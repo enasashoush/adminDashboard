@@ -1,33 +1,34 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { API_BASE_URL } from './config';
+import { Helmet } from 'react-helmet';
 
 function UserView() {
     const { id } = useParams();
     const [userList, setUserList] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    useEffect(() => {
-        //On Load
-        getUsers();
-        console.log("welcome to userview");
-    }, []);
-
-    let getUsers = async () => {
+    const getUsers = useCallback(async () => {
         try {
             const { data } = await axios.get(`${API_BASE_URL}/api/Account/users/${id}`);
-            console.log(data);
-
             setUserList(data);
             setLoading(false);
         } catch (error) {
             console.log(error);
-            // setLoading(false);
+            setLoading(false);
         }
-    }
+    }, [id]); 
+
+    useEffect(() => {
+        getUsers();
+    }, [getUsers]);
 
     return (
+
         <>
+            <Helmet>
+                <title>User Info</title>
+            </Helmet>
             <div>UserView - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
@@ -35,7 +36,7 @@ function UserView() {
                 </div>
                 <div className="card-body">
                     {
-                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' />
+                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='loading' />
                             :
                             <div className="table-responsive">
                                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">

@@ -1,13 +1,26 @@
-import { faBell, faCircleUser, faEnvelope } from '@fortawesome/free-regular-svg-icons'
-import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
+import {  faCircleUser } from '@fortawesome/free-regular-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from './authContext'
+import { jwtDecode } from "jwt-decode";
+
 
 function Topbar() {
     const { token, setToken } = useContext(AuthContext);
     const navigate = useNavigate()
+    const [username, setUsername] = useState('');
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("tkn");
+        if (token) {
+            const decoded = jwtDecode(token);
+            console.log(decoded);
+            setUsername(decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
+        }
+    }, []);
 
     function logout() {
         localStorage.removeItem('tkn')
@@ -32,26 +45,10 @@ function Topbar() {
                         <Link onClick={logout} className="nav-link dropdown-toggle" to="/login" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {/* Admin name */}
-                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Enas Ashoush</span>
+                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">{username}</span>
                             <FontAwesomeIcon icon={faCircleUser} size={"xl"} />
                         </Link>
-                        {/* <!-- Dropdown - User Information --> */}
-                        <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="userDropdown">
-                            <a className="dropdown-item" href="#">
-                                <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a className="dropdown-item" href="#">
-                                <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
+                    
                     </li>
 
                 </ul>

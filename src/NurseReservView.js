@@ -1,41 +1,46 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { API_BASE_URL } from './config';
+import { Helmet } from 'react-helmet';
 
 function ReservationView() {
-    const params = useParams();
-    const [userList, setUserList] = useState([]);
+    const { id } = useParams();
+    const [appointment, setAppointment] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        //On Load
-        getUsers();
-        console.log("welcome to userview");
-    }, []);
+        const getUsers = async () => {
+            try {
+                const { data } = await axios.get(`${API_BASE_URL}/api/Nurse/appointments/${id}`);
+                setAppointment(data);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
-    let getUsers = async () => {
-        try {
-            const user = await axios.get(`https://63a9bccb7d7edb3ae616b639.mockapi.io/users/${params.id}`);
-            // console.log(user);
-            setUserList(user.data);
-            // console.log(userList);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            // setLoading(false);
-        }
+        getUsers();
+    }, [id])
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
     return (
         <>
-            <div>Reservation View - {params.id}</div>
+            <Helmet>
+                <title>Reservation Details</title>
+            </Helmet>
+            <div>Reservation View - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">Reservation View</h6>
+                    <h6 className="m-0 font-weight-bold text-success">Reservation View</h6>
                 </div>
                 <div className="card-body">
                     {
-                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' />
+                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='loading' />
                             :
                             <div className="table-responsive">
                                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
@@ -64,12 +69,12 @@ function ReservationView() {
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>{userList.id}</td>
-                                            <td> {userList.username} </td>
-                                            <td>{userList.email}</td>
-                                            <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
-                                            <td>{userList.city}</td>
+                                            <td>{appointment.id}</td>
+                                            <td>{appointment.appNurse.nurseName}</td>
+                                            <td>Start Date: {formatDate(appointment.startTime)} - End Date: {formatDate(appointment.endTime)}</td>
+                                            <td>{appointment.patientName}</td>
+                                            <td>{appointment.street} {appointment.city}</td>
+                                            <td>{appointment.appNurse.price}</td>
 
 
 

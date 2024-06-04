@@ -1,4 +1,3 @@
-// import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -11,9 +10,9 @@ export function AuthProvider({ children }) {
     if (storedToken !== null) {
       setToken(storedToken);
     }
-  }, []);
 
 
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ token, setToken }}>

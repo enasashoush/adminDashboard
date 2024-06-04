@@ -4,15 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from './config'
+import { Helmet } from 'react-helmet'
 
 function Productlist() {
   const [productList, setProductList] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    //On Load
     getProducts();
-    console.log("welcome");
   }, []);
 
   let getProducts = async () => {
@@ -30,7 +29,7 @@ function Productlist() {
       const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
       if (confirmDelete) {
         await axios.delete(`${API_BASE_URL}/api/Products/${id}`);
-        getProducts(); //check it
+        getProducts(); 
       }
     } catch (error) {
       console.log(error);
@@ -39,6 +38,9 @@ function Productlist() {
 
   return (
     <>
+      <Helmet>
+        <title>Product List</title>
+      </Helmet>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Product-List</h1>
         <Link to="/create-product" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
@@ -53,7 +55,7 @@ function Productlist() {
         </div>
         <div className="card-body">
           {
-            isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='enas' />
+            isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='loading' />
               : <div className="table-responsive">
                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                   <thead>

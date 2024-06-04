@@ -4,21 +4,20 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from './config'
+import { Helmet } from 'react-helmet'
 
 function Nurselist() {
 
   const [nurseList, setNurseList] = useState([]);
   const [isLoading, setLoading] = useState(true);
- 
+
   useEffect(() => {
-    //On Load 
     getNurses();
-    console.log("welcome nurse");
   }, []);
 
   let getNurses = async () => {
     try {
-      const {data} = await axios.get(`${API_BASE_URL}/api/Nurse`);
+      const { data } = await axios.get(`${API_BASE_URL}/api/Nurse/All-Nurses`);
       setNurseList(data.nurses);
       setLoading(false);
     } catch (error) {
@@ -31,7 +30,7 @@ function Nurselist() {
       const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
       if (confirmDelete) {
         await axios.delete(`${API_BASE_URL}/api/Nurse/${id}`);
-        getNurses(); //check it
+        getNurses();
       }
     } catch (error) {
       console.log(error);
@@ -40,6 +39,10 @@ function Nurselist() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Nurse List</title>
+      </Helmet>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Nurse-List</h1>
         <Link to="/nurse-create" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
@@ -69,7 +72,7 @@ function Nurselist() {
                   </thead>
                   <tfoot>
                     <tr>
-                    <th>Id</th>
+                      <th>Id</th>
                       <th> Name</th>
                       <th>Email</th>
                       <th>Fees</th>

@@ -1,19 +1,15 @@
-import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from './config'
+import { Helmet } from 'react-helmet'
 
 function Reservationlist() {
-
     const [reservList, setReservList] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        //On Load
         getAppointments();
-        console.log("welcome reserv");
     }, []);
 
     let getAppointments = async () => {
@@ -38,7 +34,7 @@ function Reservationlist() {
         try {
             const confirmDelete = window.confirm("Are you sure do you want to delete the data?");
             if (confirmDelete) {
-                await axios.delete(`$${API_BASE_URL}/api/Nurse/cancel-appointment/${id}`);
+                await axios.delete(`${API_BASE_URL}/api/Nurse/cancel-appointment/${id}`);
                 getAppointments();
             }
         } catch (error) {
@@ -46,8 +42,16 @@ function Reservationlist() {
         }
     }
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
     return (
         <>
+            <Helmet>
+                <title>Reservations</title>
+            </Helmet>
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Reservation-List</h1>
             </div>
@@ -90,13 +94,13 @@ function Reservationlist() {
                                             return (
                                                 <tr>
                                                     <td>{appointment.id}</td>
-                                                    <td> {appointment.nurseName} </td>
-                                                    <td>Start Date: {appointment.startTime} - End Date {appointment.endTime}</td>
+                                                    <td> {appointment.appNurse.nurseName} </td>
+                                                    <td>Start Date: {formatDate(appointment.startTime)} - End Date: {formatDate(appointment.endTime)}</td>
                                                     <td>{appointment.patientName}</td>
                                                     <td>{appointment.street}</td>
-                                                    <td>{appointment.price}</td>
+                                                    <td>{appointment.appNurse.price}</td>
                                                     <th>
-                                                        <Link to={`/ReservationView/${appointment.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
+                                                        <Link to={`/reservation-view/${appointment.id}`} className='btn btn-primary btn-sm mr-1'>View</Link>
                                                         <button onClick={() => handleDelete(appointment.id)} className='btn btn-danger btn-sm mr-1'>Delete</button>
                                                     </th>
                                                 </tr>

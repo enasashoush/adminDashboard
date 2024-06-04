@@ -2,33 +2,33 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { API_BASE_URL } from './config';
+import { Helmet } from 'react-helmet';
 
 function NurseView() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [nurseList, setNurseList] = useState([]);
     const [isLoading, setLoading] = useState(true);
- 
+
     useEffect(() => {
-        //On Load
+        const getNurse = async () => {
+            try {
+                const { data } = await axios.get(`${API_BASE_URL}/api/Nurse/${id}`);
+                setNurseList(data);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+                setLoading(false); 
+            }
+        };
+
         getNurse();
-        console.log("welcome to userview");
-    }, []);
- 
-    let getNurse = async () => {
-        try {
-            const {data}= await axios.get(`${API_BASE_URL}/api/Nurse/${id}`);
-            // console.log(user);
-            setNurseList(data);
-            // console.log(userList);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            // setLoading(false);
-        }
-    }
+    }, [id]); 
 
     return (
         <>
+            <Helmet>
+                <title>Nurse Info</title>
+            </Helmet>
             <div>NurseView - {id}</div>
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
@@ -36,7 +36,7 @@ function NurseView() {
                 </div>
                 <div className="card-body">
                     {
-                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' />
+                        isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='loading' />
                             :
                             <div className="table-responsive">
                                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
@@ -54,7 +54,7 @@ function NurseView() {
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        <th>Id</th>
+                                            <th>Id</th>
                                             <th> Name</th>
                                             <th>Email</th>
                                             <th> Hospital</th>
@@ -73,7 +73,7 @@ function NurseView() {
                                             <td>{nurseList.specialty}</td>
                                             <td>{nurseList.price}</td>
                                             <td>{nurseList.description}</td>
-                                            <img className=' w-100' src={nurseList.picUrl}/>
+                                            <img className=' w-100' src={nurseList.picUrl} alt='cover' />
 
                                         </tr>
                                     </tbody>

@@ -1,9 +1,8 @@
-import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from './config'
+import { Helmet } from 'react-helmet'
 
 function Userlist() {
 
@@ -11,9 +10,7 @@ function Userlist() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    //On Load
     getUsers();
-    console.log("welcome");
   }, []);
 
   let getUsers = async () => {
@@ -47,6 +44,9 @@ function Userlist() {
 
   return (
     <>
+          <Helmet>
+            <title>User List</title>
+        </Helmet>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">User-List</h1>
       </div>
@@ -57,7 +57,7 @@ function Userlist() {
         </div>
         <div className="card-body">
           {
-            isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='enas' />
+            isLoading ? <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt='loading' />
               : <div className="table-responsive">
                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                   <thead>

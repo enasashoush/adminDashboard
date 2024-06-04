@@ -2,23 +2,27 @@ import React, { useContext } from 'react'
 import { Doughnut, Line } from 'react-chartjs-2'
 import Card from './Card'
 import {
-    Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title, Colors
+    Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title
 } from 'chart.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from './authContext';
+import { Helmet } from 'react-helmet';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title);
 
 function Dashboard() {
 
-    const {token} = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     return (
         <>
+            <Helmet>
+                <title>Dashboard</title>
+            </Helmet>
             {token ? <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">HealthGuard Dashboard</h1>
-                    <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                    <a href="/" className="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                         <FontAwesomeIcon icon={faDownload} style={{ marginRight: "0.25rem", color: "white" }} />
                         Generate Report
                     </a>
