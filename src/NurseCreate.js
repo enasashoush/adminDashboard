@@ -28,8 +28,17 @@ function NurseCreate() {
         }, 1000);
 
       }
-    } catch (err) {
-      console.error("Failed to create nurse. Please try again later.", err);
+    }catch (err) {
+      if (err.response && err.response.status === 400) {
+        const errorMessage = err.response.data.message;
+        if (errorMessage === 'Email already exists') {
+          toast.error("Email already exists");
+        } else {
+          toast.error("Email already exists");
+        }
+      } else {
+        console.error("Failed to create nurse. Please try again later.", err);
+      }
     } finally {
       setLoading(false);
     }
