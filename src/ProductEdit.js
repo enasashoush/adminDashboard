@@ -53,7 +53,7 @@ function ProductEdit() {
                     ...values,
                     categoryId: selectedCategory
                 });
-                toast.success("Nurse has been updated successfully");
+                toast.success("Product has been updated successfully");
                 setLoading(false);
                 navigate("/product-list");
             } catch (error) {
@@ -68,12 +68,6 @@ function ProductEdit() {
                 errors.name = "Please enter product name";
             } else if (values.name.length < 5) {
                 errors.name = "Name shouldn't be less than 5 letters";
-            }
-
-            if (values.description.length < 5) {
-                errors.description = "Description shouldn't be less than 5 letters";
-            } else if (values.description.length > 200) {
-                errors.description = "Description shouldn't be more than 200 letters";
             }
 
             if (!values.price) {
@@ -142,7 +136,7 @@ function ProductEdit() {
                             <input onBlur={myFormik.handleBlur} onChange={handleFileChange} id='pictureUrl' type='file'
                                 className={`form-control ${myFormik.errors.pictureUrl && myFormik.touched.pictureUrl ? "is-invalid" : ""}`} />
                             {myFormik.errors.pictureUrl && myFormik.touched.pictureUrl && <div className='alert alert-info'>{myFormik.errors.pictureUrl}</div>}
-                            <div>Selected Image: {myFormik.values.pictureUrl}</div> Display the selected image as a string link
+                            {/* <div>Selected Image: {myFormik.values.pictureUrl}</div> Display the selected image as a string link */}
                         </div>
 
                         <div className='col-lg-4'>

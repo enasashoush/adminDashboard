@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from './config';
 import { useFormik } from 'formik';
 import { AuthContext } from './authContext';
-import { FallingLines } from 'react-loader-spinner';
+import { FallingLines, Puff } from 'react-loader-spinner';
 import { Helmet } from 'react-helmet';
 import {jwtDecode} from 'jwt-decode';
+import { useQuery } from 'react-query';
 
 export default function Login() {
     const { setToken } = useContext(AuthContext);
@@ -64,6 +65,22 @@ export default function Login() {
             return errors;
         }
     });
+
+    const { Loading, data } = useQuery('login', loginUser)
+
+    if (Loading) {
+        return <div className="vh-100 d-flex justify-content-center align-items-center">
+            <Puff
+                visible={true}
+                height="80"
+                width="80"
+                color="#0F969C"
+                ariaLabel="puff-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
+        </div>
+    }
 
     return (
         <>

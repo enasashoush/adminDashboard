@@ -169,7 +169,7 @@ function NurseCreate() {
               <input onBlur={myFormik.handleBlur} onChange={handleFileChange} id='picUrl' type='file'
                 className={`form-control ${myFormik.errors.picUrl && myFormik.touched.picUrl ? "is-invalid" : ""}`} />
               {myFormik.errors.picUrl && myFormik.touched.picUrl && <div className='alert alert-info'>{myFormik.errors.picUrl}</div>}
-              <div>Selected Image: {myFormik.values.picUrl}</div>
+              {/* <div>Selected Image: {myFormik.values.picUrl}</div> */}
             </div>
 
 
