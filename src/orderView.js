@@ -79,8 +79,8 @@ function OrderView() {
                                                                 <img src={item.pictureUrl} alt="Product" className="w-50" />
                                                                 <div className="order-info">
                                                                     <h3>{item.productName.split(" ").slice(0, 2).join(" ")}</h3>
-                                                                    <h5>Count: {item.quantity}</h5>
-                                                                    <h5>Price: {item.price}</h5>
+                                                                    <h5>Count: {item.price}</h5>
+                                                                    <h5>Price: {item.quantity}</h5>
                                                                 </div>
                                                             </div>
                                                         </div>
