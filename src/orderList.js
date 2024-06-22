@@ -70,7 +70,7 @@ const formatDate = (dateString) => {
                       <th>User E-Mail</th>
                       <th>OrderDate</th>
                       <th>ShippingAddress </th>
-                      <th>Total Order COSt</th>
+                      <th>Total Order Cost</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -80,7 +80,7 @@ const formatDate = (dateString) => {
                       <th>User E-Mail</th>
                       <th>OrderDate</th>
                       <th>ShippingAddress </th>
-                      <th>Total Order COSt</th>
+                      <th>Total Order Cost</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>

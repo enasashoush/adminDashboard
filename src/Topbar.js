@@ -25,7 +25,7 @@ function Topbar() {
     function logout() {
         localStorage.removeItem('tkn')
         setToken(null)
-        navigate('/login')
+        navigate('/')
     }
     return (<>
         {token ? <>
@@ -42,7 +42,7 @@ function Topbar() {
 
                     {/* <!-- Nav Item - User Information --> */}
                     <li className="nav-item dropdown no-arrow">
-                        <Link onClick={logout} className="nav-link dropdown-toggle" to="/login" id="userDropdown" role="button"
+                        <Link onClick={logout} className="nav-link dropdown-toggle" to="/" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {/* Admin name */}
                             <span className="mr-2 d-none d-lg-inline text-gray-600 small">{username}</span>

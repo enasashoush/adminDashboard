@@ -43,24 +43,24 @@ function ProductView() {
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>product Name</th>
-                                            <th>product Price</th>
+                                            <th>Product Name</th>
+                                            <th>Product Price</th>
                                             <th>Product description</th>
-                                            <th>product rate</th>
-                                            <th>category</th>
-                                            <th>product Image</th>
+                                            <th>Product rate</th>
+                                            <th>Category</th>
+                                            <th>Product Image</th>
 
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>product Name</th>
-                                            <th>product Price</th>
-                                            <th>Product description</th>
-                                            <th>product rate</th>
-                                            <th>category</th>
-                                            <th>product Image</th>
+                                            <th>Product Name</th>
+                                            <th>Product Price</th>
+                                            <th>Product Description</th>
+                                            <th>Product rate</th>
+                                            <th>Category</th>
+                                            <th>Product Image</th>
 
                                         </tr>
                                     </tfoot>

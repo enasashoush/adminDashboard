@@ -61,8 +61,8 @@ function Productlist() {
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>product Name</th>
-                      <th>product Price</th>
+                      <th>Product Name</th>
+                      <th>Product Price</th>
                       <th>category</th>
                       <th>Action</th>
                     </tr>
@@ -70,8 +70,8 @@ function Productlist() {
                   <tfoot>
                     <tr>
                       <th>Id</th>
-                      <th>product Name</th>
-                      <th>product Price</th>
+                      <th>Product Name</th>
+                      <th>Product Price</th>
                       <th>category</th>
                       <th>Action</th>
                     </tr>

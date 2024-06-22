@@ -33,7 +33,7 @@ export default function Login() {
                     setToken(data.token);
                     setSuccess("Welcome Back Admin");
                     setTimeout(function () {
-                        navigate("/");
+                        navigate("/dashboard");
                     }, 1000);
                 } else {
                     setEerMsg("You are not authorized to access this portal");
